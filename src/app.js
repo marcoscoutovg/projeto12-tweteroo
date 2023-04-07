@@ -13,10 +13,9 @@ const imgProfile = ""
 
 app.post("/sign-up", (req, res) => {
     const { username, avatar } = req.body;
-    imgProfile = avatar;
     const user = { username, avatar };
     users.push(user);
-    res.send("OK");
+    res.status(200).send("OK");
 })
 
 app.get("/tweets", (req, res) => {
