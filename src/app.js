@@ -16,6 +16,7 @@ app.post("/sign-up", (req, res) => {
     imgProfile = avatar;
     const user = { username, avatar };
     users.push(user);
+    res.send("OK");
 })
 
 app.get("/tweets", (req, res) => {
