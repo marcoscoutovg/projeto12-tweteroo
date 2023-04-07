@@ -13,15 +13,9 @@ const imgProfile = ""
 
 app.post("/sign-up", (req, res) => {
     const { username, avatar } = req.body;
-
-    if (!username || !avatar) {
-        return res.send("UNAUTHORIZED")
-    }
-
     imgProfile = avatar;
     const user = { username, avatar };
     users.push(user);
-    res.status(200).send("OK");
 })
 
 app.get("/tweets", (req, res) => {
@@ -31,9 +25,14 @@ app.get("/tweets", (req, res) => {
 
 app.post("/tweets", (req, res) => {
     const { username, tweet } = req.body;
+
+    if (!username) {
+        return res.send("UNAUTHORIZED")
+    }
+
     const infoTweet = { username, avatar: imgProfile, tweet };
     tweetList.push(infoTweet);
-    res.send("OK");
+    res.status(200).send("OK");
 })
 
 
