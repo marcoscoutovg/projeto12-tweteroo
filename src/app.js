@@ -26,8 +26,8 @@ app.get("/tweets", (req, res) => {
 app.post("/tweets", (req, res) => {
     const { username, tweet } = req.body;
 
-    if (!username) {
-        return res.send("UNAUTHORIZED")
+    if (username === "" || username === null || username === undefined ) {
+        return res.sendStatus(401).send("UNAUTHORIZED")
     }
 
     const infoTweet = { username, avatar: imgProfile, tweet };
