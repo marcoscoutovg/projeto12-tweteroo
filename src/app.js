@@ -7,11 +7,20 @@ app.use(express.json());
 
 const PORT = 5000;
 
-const users = []
+const users = [{
+	username: "bobesponja",
+  tweet: "Eu amo hambúrguer de siri!"
+},
+{
+	username: "sirigueijo",
+  tweet: "Eu amo hambúrguer de siri!"
+},
+{
+	username: "sandy",
+  tweet: "Eu amo hambúrguer de siri!"
+}]
 const tweetList = [];
 let imgProfile = "";
-
-const tenTweets = []
 
 app.post("/sign-up", (req, res) => {
     const { username, avatar } = req.body;
@@ -28,11 +37,11 @@ app.get("/tweets", (req, res) => {
 app.post("/tweets", (req, res) => {
     const { username, tweet } = req.body;
 
-    if (!username) {
+    const infoTweet = { username, avatar: imgProfile, tweet };
+
+    if (!username || !users.find(u => u.username === username)) {
         return res.send("UNAUTHORIZED")
     }
-
-    const infoTweet = { username, avatar: imgProfile, tweet };
 
     tweetList.push(infoTweet);
 
