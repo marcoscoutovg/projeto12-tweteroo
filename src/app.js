@@ -9,29 +9,33 @@ const PORT = 5000;
 
 const users = []
 const tweetList = [];
-const imgProfile = ""
+let imgProfile = "";
+
+const tenTweets = []
 
 app.post("/sign-up", (req, res) => {
     const { username, avatar } = req.body;
     const user = { username, avatar };
+    imgProfile = avatar;
     users.push(user);
-    res.status(200).send("OK");
+    res.send("OK");
 })
 
 app.get("/tweets", (req, res) => {
-    const { username, tweet } = req.body
-    res.send(tweetList);
+    res.send(tweetList.slice(-10).reverse());
 })
 
 app.post("/tweets", (req, res) => {
     const { username, tweet } = req.body;
 
-    if (username === "" || username === null || username === undefined ) {
-        return res.sendStatus(401).send("UNAUTHORIZED")
+    if (!username) {
+        return res.send("UNAUTHORIZED")
     }
 
     const infoTweet = { username, avatar: imgProfile, tweet };
+
     tweetList.push(infoTweet);
+
     res.status(200).send("OK");
 })
 
