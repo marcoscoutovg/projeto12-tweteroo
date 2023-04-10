@@ -7,18 +7,7 @@ app.use(express.json());
 
 const PORT = 5000;
 
-const users = [{
-	username: "bobesponja",
-  tweet: "Eu amo hambúrguer de siri!"
-},
-{
-	username: "sirigueijo",
-  tweet: "Eu amo hambúrguer de siri!"
-},
-{
-	username: "sandy",
-  tweet: "Eu amo hambúrguer de siri!"
-}]
+const users = [];
 const tweetList = [];
 let imgProfile = "";
 
@@ -28,25 +17,25 @@ app.post("/sign-up", (req, res) => {
     imgProfile = avatar;
     users.push(user);
     res.send("OK");
-})
+});
 
 app.get("/tweets", (req, res) => {
     res.send(tweetList.slice(-10).reverse());
-})
+});
 
 app.post("/tweets", (req, res) => {
-    const { username, tweet } = req.body;
 
+    const { username, tweet } = req.body;
     const infoTweet = { username, avatar: imgProfile, tweet };
 
     if (!username || !users.find(u => u.username === username)) {
-        return res.send("UNAUTHORIZED")
+        return res.send("UNAUTHORIZED");
     }
 
     tweetList.push(infoTweet);
 
     res.status(200).send("OK");
-})
+});
 
 
 app.listen(PORT, () => console.log("funcionou"));
